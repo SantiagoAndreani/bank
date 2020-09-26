@@ -29,17 +29,18 @@ public class RegisterController {
     }
 
     @PostMapping("/registerUser")
-    public String registerUser(@Valid UserEntity userEntity, BindingResult result) {
+    public String registerUser(@Valid UserEntity userEntity, BindingResult result){
 
         if (result.hasErrors())
             return "register";
 
-        else {
-//            userEntity.setPassword(encoderService.bCrypt().encode(userEntity.getPassword()));
+        if (userService.notUniqueDni(userEntity) || userService.notUniqueEmail(userEntity))
+            return "register";
+
+         else {
             userService.registerUser(userEntity);
             return "index";
         }
-
     }
 
 }

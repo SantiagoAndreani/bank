@@ -21,12 +21,12 @@
     <label for="dni" class="sr-only">DNI</label>
     <input th:field="*{dni}"
            type="number" id="dni" class="form-control" placeholder="Ingrese su DNI" required autofocus>
-<!--    <span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span>-->
+    <span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span>
 
     <label for="email" class="sr-only">Email</label>
     <input th:field="*{email}"
            type="email" id="email" class="form-control" placeholder="Ingrese su Email" required autofocus>
-
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 
     <label for="password" class="sr-only">Contraseña</label>
     <input th:field="*{password}"

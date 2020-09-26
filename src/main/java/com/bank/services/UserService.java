@@ -5,6 +5,8 @@ import com.bank.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -16,7 +18,15 @@ public class UserService {
     }
 
     public void registerUser(UserEntity userEntity) {
-        userRepository.save(userEntity);
+            userRepository.save(userEntity);
+    }
+
+    public boolean notUniqueDni(UserEntity userEntity) {
+        return userRepository.existsByDni(userEntity.getDni());
+    }
+
+    public boolean notUniqueEmail(UserEntity userEntity) {
+        return userRepository.existsByEmail(userEntity.getEmail());
     }
 
 }

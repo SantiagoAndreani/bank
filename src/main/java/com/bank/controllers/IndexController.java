@@ -29,22 +29,22 @@ public class IndexController {
         return "index";
     }
 
-    @PostMapping("/loginUser")
-    public String loginUser(@Valid UserEntity userEntity,
-                            BindingResult result,
-                            Model model) {
-
-        if (result.hasErrors()) {
-            return "index";
-        }
-
-        Optional<UserEntity> userEntityOptional = userRepository.findByDni(String.valueOf(userEntity.getDni()));
-
-        if (userEntityOptional.isPresent())
-            return "home";
-        else
-            return "index";
-
-    }
+//    @PostMapping("/loginUser")
+//    public String loginUser(@Valid UserEntity userEntity,
+//                            BindingResult result,
+//                            Model model) {
+//
+//        if (result.hasErrors()) {
+//            return "index";
+//        }
+//
+//        Optional<UserEntity> userEntityOptional = userRepository.findByDni(String.valueOf(userEntity.getDni()));
+//
+//        if (userEntityOptional.isPresent())
+//            return "home";
+//        else
+//            return "index";
+//
+//    }
 
 }
