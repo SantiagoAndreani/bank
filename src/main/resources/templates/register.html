@@ -32,11 +32,12 @@
     <input th:field="*{password}"
            type="password" id="password" class="form-control" placeholder="Ingrese una Contraseña" required>
 
-    <label for="password2" class="sr-only">Contraseña</label>
-    <input type="password" id="password2" class="form-control" placeholder="Repita su Contraseña" required>
+    <label for="passwordMatch" class="sr-only">Contraseña</label>
+    <input type="password" id="passwordMatch" class="form-control" placeholder="Repita su Contraseña" required>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Registrame !</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 </form>
 </body>
+<script th:src="@{js/register.js}" src="../static/js/register.js"></script>
 </html>
