@@ -9,10 +9,9 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
 
     @Id
@@ -20,11 +19,11 @@ public class UserEntity {
     private Long id;
 
     @Column(unique = true)
-    @Range(min = 1000000, max = 99999999, message = "Dni invalido")
-    private Integer dni;
+    @Size(min = 7, max = 8, message = "Dni invalido java")
+    private String dni;
 
     @Column(unique = true)
-    @Email(message = "Email invalido")
+    @Email(message = "Email invalido java")
     @NotBlank
     private String email;
 

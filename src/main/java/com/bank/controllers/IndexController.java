@@ -15,12 +15,12 @@ import java.util.Optional;
 
 @Controller
 @NoArgsConstructor
-public class indexController {
+public class IndexController {
 
     private UserRepository userRepository;
 
     @Autowired
-    public indexController(UserRepository userRepository) {
+    public IndexController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -38,7 +38,7 @@ public class indexController {
             return "index";
         }
 
-        Optional<UserEntity> userEntityOptional = userRepository.findByDni(userEntity.getDni());
+        Optional<UserEntity> userEntityOptional = userRepository.findByDni(String.valueOf(userEntity.getDni()));
 
         if (userEntityOptional.isPresent())
             return "home";

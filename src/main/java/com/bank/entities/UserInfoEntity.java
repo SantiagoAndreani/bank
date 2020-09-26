@@ -1,10 +1,7 @@
 package com.bank.entities;
 
 import com.bank.models.UserGender;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -13,10 +10,9 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "info")
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserInfoEntity {
 
     @Id
@@ -38,7 +34,7 @@ public class UserInfoEntity {
     private LocalDate birthDate;
 
     @Column(name = "cel_phone", unique = true)
-    @Digits(integer = 10, fraction = 0)
+//    @Digits(integer = 10, fraction = 0)
     private Integer celPhone;
 
     @NotBlank

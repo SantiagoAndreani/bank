@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 @Controller
-public class registerController {
+public class RegisterController {
 
     private UserService userService;
     private PasswordEncoderService encoderService;
 
     @Autowired
-    public registerController(UserService userService, PasswordEncoderService encoderService) {
+    public RegisterController(UserService userService, PasswordEncoderService encoderService) {
         this.userService = userService;
         this.encoderService = encoderService;
     }
@@ -35,7 +35,7 @@ public class registerController {
             return "register";
 
         else {
-            userEntity.setPassword(encoderService.bCrypt().encode(userEntity.getPassword()));
+//            userEntity.setPassword(encoderService.bCrypt().encode(userEntity.getPassword()));
             userService.registerUser(userEntity);
             return "index";
         }

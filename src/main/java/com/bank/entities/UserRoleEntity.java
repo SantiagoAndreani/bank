@@ -1,10 +1,7 @@
 package com.bank.entities;
 
 import com.bank.models.UserRole;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,10 +9,9 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "roles")
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserRoleEntity {
 
     @Id

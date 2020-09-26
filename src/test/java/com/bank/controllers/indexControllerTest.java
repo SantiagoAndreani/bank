@@ -13,11 +13,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 class indexControllerTest {
 
     private MockMvc mockMvc;
-    private indexController indexController;
+    private IndexController indexController;
 
     @BeforeEach
     void setUp() {
-        indexController = new indexController();
+        indexController = new IndexController();
         mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
     }
 
