@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTER</title>
+
+    <link th:href="@{css/bootstrap.min.css}"  href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{css/register.css}" href="../static/css/register.css" rel="stylesheet">
+
+</head>
+<body class="text-center">
+
+<form th:object="${userEntity}" th:action="@{/registerUser}" action="#" method="post" class="form-signin" >
+
+    <img th:src="@{img/ananaLogo.png}" src="../static/img/ananaLogo.png" class="mb-4"  alt="logo" height="150">
+    <h1 class="h3 mb-3 font-weight-normal">Complete sus datos</h1>
+
+    <label for="dni" class="sr-only">DNI</label>
+    <input th:field="*{dni}"
+           type="number" id="dni" class="form-control" placeholder="Ingrese su DNI" required autofocus>
+<!--    <span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span>-->
+
+    <label for="email" class="sr-only">Email</label>
+    <input th:field="*{email}"
+           type="email" id="email" class="form-control" placeholder="Ingrese su Email" required autofocus>
+
+
+    <label for="password" class="sr-only">Contraseña</label>
+    <input th:field="*{password}"
+           type="password" id="password" class="form-control" placeholder="Ingrese una Contraseña" required>
+
+    <label for="password2" class="sr-only">Contraseña</label>
+    <input type="password" id="password2" class="form-control" placeholder="Repita su Contraseña" required>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Registrame !</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+</form>
+</body>
+</html>
