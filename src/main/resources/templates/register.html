@@ -19,14 +19,12 @@
     <h1 class="h3 mb-3 font-weight-normal">Complete sus datos</h1>
 
     <label for="dni" class="sr-only">DNI</label>
-    <input th:field="*{dni}"
+    <input th:field="*{dni}" min="7" maxl="8"
            type="number" id="dni" class="form-control" placeholder="Ingrese su DNI" required autofocus>
-    <span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span>
 
     <label for="email" class="sr-only">Email</label>
     <input th:field="*{email}"
            type="email" id="email" class="form-control" placeholder="Ingrese su Email" required autofocus>
-    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 
     <label for="password" class="sr-only">Contraseña</label>
     <input th:field="*{password}"
@@ -36,7 +34,13 @@
     <input type="password" id="passwordMatch" class="form-control" placeholder="Repita su Contraseña" required>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Registrame !</button>
+
+    <p th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class=" alert alert-warning"></p>
+    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-warning"></p>
+    <p th:if="${notUnique}" th:text="${notUnique}" class="alert alert-danger">></p>
+
     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+
 </form>
 </body>
 <script th:src="@{js/register.js}" src="../static/js/register.js"></script>

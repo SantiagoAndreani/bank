@@ -1,7 +1,6 @@
 package com.bank.entities;
 
 import lombok.*;
-import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -19,11 +18,12 @@ public class UserEntity {
     private Long id;
 
     @Column(unique = true)
-    @Size(min = 7, max = 8, message = "Dni invalido java")
+    @Size(min = 7, max = 8, message = "Dni Invalido")
+    @NotBlank
     private String dni;
 
     @Column(unique = true)
-    @Email(message = "Email invalido java")
+    @Email(message = "Email Invalido")
     @NotBlank
     private String email;
 

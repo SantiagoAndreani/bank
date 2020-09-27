@@ -31,6 +31,7 @@
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
     <a th:href="@{register}" href="register.html" class="btn btn-lg btn-secondary btn-block">Soy Nuevo !</a>
+    <p th:if="${success}" th:text="${success}" class="alert alert-success"></p>
     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 </form>
 
