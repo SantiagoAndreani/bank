@@ -33,17 +33,21 @@ public class RegisterController {
     @PostMapping("/registerUser")
     public String registerUser(@Valid UserEntity userEntity,
                                BindingResult result,
-                               Model model,
                                RedirectAttributes redirectAttributes){
 
         if (result.hasErrors())
             return "register";
 
-        if (userService.notUniqueDni(userEntity) || userService.notUniqueEmail(userEntity)) {
-            redirectAttributes.addFlashAttribute("notUnique", "Dni y/o Email existente");
+        if (userService.notUniqueDni(userEntity)) {
+            redirectAttributes.addFlashAttribute("notUniqueDni", "Dni existente");
+            return "redirect:/register";
+        }
+        if (userService.notUniqueEmail(userEntity)) {
+            redirectAttributes.addFlashAttribute("notUniqueEmail", "Email existente");
             return "redirect:/register";
         }
         else {
+            userEntity.setPassword(encoderService.bCrypt().encode(userEntity.getPassword()));
             userService.registerUser(userEntity);
             redirectAttributes.addFlashAttribute("success", "Cuenta creada exitosamente");
             return "redirect:/index";
