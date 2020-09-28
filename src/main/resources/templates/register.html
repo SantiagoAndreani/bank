@@ -16,7 +16,7 @@
 <form th:object="${userEntity}" th:action="@{/registerUser}" action="#" method="post" class="form-signin" >
 
     <img th:src="@{img/ananaLogo.png}" src="../static/img/ananaLogo.png" class="mb-4"  alt="logo" height="150">
-    <h1 class="h3 mb-3 font-weight-normal">Crear nueva Cuenta</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Crear cuenta nueva</h1>
 
     <label for="dni" class="sr-only">DNI</label>
     <input th:field="*{dni}" type= "number" oninput="dniLength()" minlength="7" maxlength = "8"

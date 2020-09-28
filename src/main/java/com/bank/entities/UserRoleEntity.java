@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -15,12 +16,14 @@ import javax.validation.constraints.NotBlank;
 public class UserRoleEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     @Enumerated(EnumType.STRING)
-    @NotBlank
+    @NotNull
     private UserRole name;
 
+    public UserRoleEntity(@NotNull UserRole name) {
+        this.name = name;
+    }
 }

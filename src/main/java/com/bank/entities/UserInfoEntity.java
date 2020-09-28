@@ -16,31 +16,31 @@ import java.time.LocalDate;
 public class UserInfoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+//    @NotBlank
     private String name;
 
     @Column(name = "last_name")
-    @NotBlank
+//    @NotBlank
     private String lastName;
 
     @Enumerated(EnumType.STRING)
     private UserGender gender;
 
     @Column(name = "birth_date")
-    @NotBlank
+//    @NotBlank
     private LocalDate birthDate;
 
     @Column(name = "cel_phone", unique = true)
 //    @Digits(integer = 10, fraction = 0)
     private Integer celPhone;
 
-    @NotBlank
+//    @NotBlank
     private String province;
 
-    @NotBlank
+//    @NotBlank
     private String municipality;
 
 

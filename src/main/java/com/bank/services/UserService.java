@@ -1,15 +1,22 @@
 package com.bank.services;
 
+import com.bank.entities.UserAccountEntity;
 import com.bank.entities.UserEntity;
+import com.bank.entities.UserInfoEntity;
+import com.bank.entities.UserRoleEntity;
+import com.bank.models.UserRole;
 import com.bank.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
 public class UserService {
 
     private UserRepository userRepository;
+    private UserEntity userEntity;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -17,7 +24,19 @@ public class UserService {
     }
 
     public void registerUser(UserEntity userEntity) {
-            userRepository.save(userEntity);
+            this.userEntity = new UserEntity();
+            this.userEntity.setDni(userEntity.getDni());
+            this.userEntity.setEmail(userEntity.getEmail());
+            this.userEntity.setPassword(userEntity.getPassword());
+            this.userEntity.setAccounts(new UserAccountEntity());
+            this.userEntity.setInfo(new UserInfoEntity());
+
+            if(this.userEntity.getEmail().contains("@anana.com"))
+                this.userEntity.setRoles(List.of(new UserRoleEntity(UserRole.ADMIN_ROLE)));
+            else
+                this.userEntity.setRoles(List.of(new UserRoleEntity(UserRole.USER_ROLE)));
+
+            userRepository.save(this.userEntity);
     }
 
     public boolean notUniqueDni(UserEntity userEntity) {

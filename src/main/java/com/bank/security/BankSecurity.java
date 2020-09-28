@@ -11,7 +11,6 @@ public class BankSecurity extends WebSecurityConfigurerAdapter {
 
     private final String [] STATIC_RESOURCES = new String [] {"/css/**", "/js/**", "/img/**"};
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 

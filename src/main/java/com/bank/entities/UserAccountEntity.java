@@ -15,16 +15,16 @@ import javax.validation.constraints.NotNull;
 public class UserAccountEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @NotEmpty
+//    @NotEmpty
     private AccountType type;
 
     @Column(unique = true)
     private Long cbu;
 
-    @NotNull
+//    @NotNull
     private Double amount;
 }
