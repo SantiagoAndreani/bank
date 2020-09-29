@@ -48,5 +48,12 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "info_id", referencedColumnName = "id"))
     private UserInfoEntity info;
 
+    public UserEntity(@Size(min = 7, max = 8, message = "Dni Invalido") @NotBlank String dni,
+                      @NotBlank String password,
+                      Collection<UserRoleEntity> roles) {
+        this.dni = dni;
+        this.password = password;
+        this.roles = roles;
+    }
 
 }

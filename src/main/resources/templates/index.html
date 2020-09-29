@@ -12,16 +12,16 @@
 
 </head>
 <body class="text-center">
-<form action="#" method="post" class="form-signin">
+<form th:action="@{/index}" method="post" class="form-signin">
 
     <img th:src="@{img/ananaLogo.png}" src="../static/img/ananaLogo.png" class="mb-4"  alt="logo" height="150">
     <h1 class="h3 mb-3 font-weight-normal">Anana Bank</h1>
 
-    <label for="dni" class="sr-only">DNI</label>
-    <input type="number" id="dni" class="form-control" placeholder="DNI" required autofocus>
+    <label for="username" class="sr-only">DNI</label>
+    <input type="number" id="username" class="form-control" placeholder="DNI" required autofocus name="username">
 
     <label for="password" class="sr-only">Contraseña</label>
-    <input  type="password" id="password" class="form-control" placeholder="Contraseña" required>
+    <input type="password" id="password" class="form-control" placeholder="Contraseña" required name="password">
 
     <div class="checkbox mb-3">
         <label>
@@ -31,7 +31,10 @@
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
     <a th:href="@{register}" href="register.html" class="btn btn-lg btn-secondary btn-block">Soy Nuevo !</a>
+
     <p th:if="${success}" th:text="${success}" class="alert alert-success"></p>
+    <p th:if="${param.error}" class="alert alert-danger" id="loginError" role="alert">Campos incorrectos</p>
+
     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 </form>
 

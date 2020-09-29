@@ -4,7 +4,6 @@ import com.bank.models.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 
@@ -23,7 +22,17 @@ public class UserRoleEntity {
     @NotNull
     private UserRole name;
 
+    @Column(name = "is_account_non_exoired")
+    private boolean isAccountNonExpired = true;
+    @Column(name = "is_account_non_locked")
+    private boolean isAccountNonLocked = true;
+    @Column(name = "is_credentials_non_expired")
+    private boolean isCredentialsNonExpired = true;
+    @Column(name = "is_enabled")
+    private boolean isEnabled = true;
+
     public UserRoleEntity(@NotNull UserRole name) {
         this.name = name;
     }
+
 }

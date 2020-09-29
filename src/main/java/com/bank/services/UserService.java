@@ -25,6 +25,7 @@ public class UserService {
 
     public void registerUser(UserEntity userEntity) {
             this.userEntity = new UserEntity();
+
             this.userEntity.setDni(userEntity.getDni());
             this.userEntity.setEmail(userEntity.getEmail());
             this.userEntity.setPassword(userEntity.getPassword());
