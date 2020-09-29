@@ -1,5 +1,6 @@
 package com.bank.security;
 
+import com.bank.models.UserRole;
 import com.bank.services.MyUserDetailsService;
 import com.bank.services.PasswordEncoderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,8 @@ public class BankSecurity extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(STATIC_RESOURCES).permitAll()
-                .antMatchers("/home").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/admin/home").hasRole(UserRole.ADMIN_ROLE.toString())
+                .antMatchers("/user/home").hasRole(UserRole.USER_ROLE.toString())
                 .antMatchers("/register", "/registerUser").permitAll()
                     .anyRequest().authenticated()
                     .and()
