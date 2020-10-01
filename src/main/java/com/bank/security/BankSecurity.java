@@ -15,6 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class BankSecurity extends WebSecurityConfigurerAdapter {
 
     private final String [] STATIC_RESOURCES = new String [] {"/css/**", "/js/**", "/img/**"};
+    private final String USER_ROLE = UserRole.ADMIN_ROLE.toString();
+    private final String ADMIN_ROLE = UserRole.USER_ROLE.toString();
 
     private PasswordEncoderService encoderService;
     private MyUserDetailsService myUserDetailsService;
@@ -36,8 +38,8 @@ public class BankSecurity extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(STATIC_RESOURCES).permitAll()
-                .antMatchers("/admin/home").hasRole(UserRole.ADMIN_ROLE.toString())
-                .antMatchers("/user/home").hasRole(UserRole.USER_ROLE.toString())
+                .antMatchers("/user/home").hasRole(USER_ROLE)
+                .antMatchers("/admin/home").hasRole(ADMIN_ROLE)
                 .antMatchers("/register", "/registerUser").permitAll()
                     .anyRequest().authenticated()
                     .and()

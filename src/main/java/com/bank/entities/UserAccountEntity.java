@@ -19,12 +19,12 @@ public class UserAccountEntity {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-//    @NotEmpty
+    @NotEmpty
     private AccountType type;
 
     @Column(unique = true)
     private Long cbu;
 
-//    @NotNull
+    @NotNull
     private Double amount;
 }
