@@ -1,7 +1,6 @@
 package com.bank.controllers;
 
 import com.bank.entities.UserEntity;
-import com.bank.services.PasswordEncoderService;
 import com.bank.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +15,10 @@ import javax.validation.Valid;
 public class RegisterController {
 
     private UserService userService;
-    private PasswordEncoderService encoderService;
 
     @Autowired
-    public RegisterController(UserService userService, PasswordEncoderService encoderService) {
+    public RegisterController(UserService userService) {
         this.userService = userService;
-        this.encoderService = encoderService;
     }
 
     @GetMapping("/register")
@@ -46,7 +43,6 @@ public class RegisterController {
             return "redirect:/register";
         }
         else {
-            userEntity.setPassword(encoderService.bCrypt().encode(userEntity.getPassword()));
             userService.registerUser(userEntity);
             redirectAttributes.addFlashAttribute("success", "Cuenta creada exitosamente");
             return "redirect:/index";
