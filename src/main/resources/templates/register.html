@@ -37,8 +37,8 @@
 
     <p th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class=" alert alert-warning"></p>
     <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-warning"></p>
-    <p th:if="${notUniqueDni}" th:text="${notUniqueDni}" class="alert alert-danger">></p>
-    <p th:if="${notUniqueEmail}" th:text="${notUniqueEmail}" class="alert alert-danger">></p>
+    <p th:if="${notUniqueDni}" th:text="${notUniqueDni}" class="alert alert-danger"></p>
+    <p th:if="${notUniqueEmail}" th:text="${notUniqueEmail}" class="alert alert-danger"></p>
 
     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 

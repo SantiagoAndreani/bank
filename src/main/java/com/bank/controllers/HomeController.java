@@ -1,6 +1,5 @@
 package com.bank.controllers;
 
-import com.bank.entities.UserEntity;
 import com.bank.entities.UserInfoEntity;
 import com.bank.models.UserRole;
 import com.bank.services.NewUserService;
@@ -43,19 +42,31 @@ public class HomeController {
     }
 
     @GetMapping("/info")
-    public String infoView(UserEntity userEntity) {
+    public String infoView(UserInfoEntity infoEntity) {
         return "info";
     }
 
     @PostMapping("/registerInfo")
-    public String registerInfo( UserEntity userEntity,@Valid UserInfoEntity userInfoEntity,
-                                BindingResult result, RedirectAttributes redirectAttributes) {
+    public String registerInfo(Authentication authentication, @Valid UserInfoEntity infoEntity,
+                               BindingResult result, RedirectAttributes redirectAttributes) {
 
-//        newUserService.registerInfo(authentication, userInfoEntity);
-//
-//        if (result.hasErrors())
-//            return "redirect:register";
+        if (result.hasErrors())
+            return "info";
 
-        return "redirect:/home";
+        if(newUserService.futureAge(infoEntity)) {
+            redirectAttributes.addFlashAttribute("futureAge", "No se permiten nacimientos futuros");
+            return "redirect:/info";
+        }
+        if(newUserService.underAge(infoEntity)) {
+            redirectAttributes.addFlashAttribute("underAge", "No se permiten menores");
+            return "redirect:/info";
+        }
+        if (newUserService.notUniqueCelPhone(infoEntity)) {
+            redirectAttributes.addFlashAttribute("notUniqueCelPhone", "Celular de cliente existente");
+            return "redirect:/info";
+        }
+        else
+            newUserService.registerInfo(authentication, infoEntity);
+            return "redirect:/home";
     }
 }

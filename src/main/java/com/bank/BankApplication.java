@@ -13,4 +13,7 @@ public class BankApplication  {
     //TODO remember me
     // provincia y municipio
     // doble login ??
+    // redirect errors info form
+    // security info form
+    // map with the user entity ID
 }

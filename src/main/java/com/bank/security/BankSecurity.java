@@ -38,10 +38,10 @@ public class BankSecurity extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(STATIC_RESOURCES).permitAll()
-                .antMatchers("/info", "registerInfo").permitAll()
+                .antMatchers("/register", "/registerUser").permitAll()
+                .antMatchers("/info", "/registerInfo").authenticated()
                 .antMatchers("/user/home").hasRole(USER_ROLE)
                 .antMatchers("/admin/home").hasRole(ADMIN_ROLE)
-                .antMatchers("/register", "/registerUser").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
@@ -55,6 +55,4 @@ public class BankSecurity extends WebSecurityConfigurerAdapter {
                 .logout().permitAll()
                     .logoutSuccessUrl("/index?logout");
     }
-
-
 }

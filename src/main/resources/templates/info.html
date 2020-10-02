@@ -21,22 +21,22 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="name">Nombre</label>
-                    <input type="text" class="form-control" id="name" required>
+                    <input th:field="*{name}" type="text" class="form-control" id="name" required autofocus>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="lastName">Apellido</label>
-                    <input  type="text" class="form-control" id="lastName" required>
+                    <input th:field="*{lastName}" type="text" class="form-control" id="lastName" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="province">Provincia</label>
-                    <select class="custom-select d-block w-100" id="province" required>
+                    <select th:field="*{province}" class="custom-select d-block w-100" id="province" required>
                     </select>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="municipality">Municipio</label>
-                    <select class="custom-select d-block w-100" id="municipality" required>
+                    <select th:field="*{municipality}" class="custom-select d-block w-100" id="municipality" required>
                     </select>
                 </div>
             </div>
@@ -44,18 +44,18 @@
                 <div class="col-md-4 mb-3">
                     <label for="birthDate">Fecha nacimiento</label>
                     <div class="input-group">
-                        <input type="date" class="form-control" id="birthDate" required>
+                        <input th:field="*{birthDate}" type="date" class="form-control" id="birthDate" required>
                     </div>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="celPhone">Celular</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" id="celPhone" required>
+                        <input th:field="*{celPhone}" type="number" class="form-control" id="celPhone" required>
                     </div>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="gender">Genero</label>
-                    <select class="custom-select d-block w-100" id="gender" required>
+                    <select th:field="*{gender}" class="custom-select d-block w-100" id="gender" required>
                         <option value="MALE">Masculino</option>
                         <option value="FEMALE">Femenino</option>
                         <option value="OTHER">Otro</option>
@@ -67,9 +67,15 @@
                     <input type="checkbox" class="custom-control-input" id="terms" onclick="check()">
                     <label class="custom-control-label" for="terms">Acepto todos los terminos y condiciones de esta aplicacion falsa</label>
                 </div>
-                <br><br><br><br>
-
+                <br><br><br>
                 <button class="btn btn-primary btn-lg btn-block" id="submit" type="submit" disabled>Complete todo, dejame empezar !</button>
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="btn-block alert alert-warning"></p>
+                <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="btn-block alert alert-warning"></p>
+                <p th:if="${#fields.hasErrors('celPhone')}" th:errors="*{celPhone}" class="btn-block alert alert-warning"></p>
+                <p th:if="${futureAge}" th:text="${futureAge}" class="btn-block alert alert-danger"></p>
+                <p th:if="${underAge}" th:text="${underAge}" class="btn-block alert alert-danger"></p>
+                <p th:if="${notUniqueCelPhone}" th:text="${notUniqueCelPhone}" class="btn-block alert alert-danger"></p>
+
             </div>
         </form>
     </div>

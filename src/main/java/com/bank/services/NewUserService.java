@@ -3,7 +3,6 @@ package com.bank.services;
 import com.bank.entities.UserEntity;
 import com.bank.entities.UserInfoEntity;
 import com.bank.entities.UserRoleEntity;
-import com.bank.models.UserGender;
 import com.bank.models.UserRole;
 import com.bank.repositories.UserInfoRepository;
 import com.bank.repositories.UserRepository;
@@ -70,25 +69,38 @@ public class NewUserService {
         return infoRepository.findById(idUser).isEmpty();
     }
 
-    public void registerInfo(Authentication authentication, UserInfoEntity userInfoEntity) {
+    public boolean notUniqueCelPhone(UserInfoEntity infoEntity) {
+        return infoRepository.existsByCelPhone(infoEntity.getCelPhone());
+    }
 
-        Optional<UserEntity> optionalUserEntity = userRepository.findByDni(authentication.getName());
-        optionalUserEntity.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
-        Long idUser = optionalUserEntity.get().getId();
+    public boolean futureAge(UserInfoEntity infoEntity) {
+        return infoEntity.getBirthDate().isAfter(LocalDate.now());
+    }
+
+    public boolean underAge(UserInfoEntity infoEntity) {
+        return (LocalDate.now().getYear() - infoEntity.getBirthDate().getYear()) <= 18;
+    }
+
+    public void registerInfo(Authentication authentication, UserInfoEntity infoEntity) {
 
         this.infoEntity = new UserInfoEntity();
 
-        this.infoEntity.setId(idUser);
-        this.infoEntity.setName(userInfoEntity.getName());
-        this.infoEntity.setLastName(userInfoEntity.getLastName());
-        this.infoEntity.setCelPhone(userInfoEntity.getCelPhone());
+        this.infoEntity.setName(infoEntity.getName().toLowerCase());
+        this.infoEntity.setLastName(infoEntity.getLastName().toLowerCase());
+        this.infoEntity.setCelPhone(infoEntity.getCelPhone());
+        this.infoEntity.setProvince(infoEntity.getProvince().toLowerCase());
+        this.infoEntity.setMunicipality(infoEntity.getMunicipality().toLowerCase());
+        this.infoEntity.setGender(infoEntity.getGender());
+        this.infoEntity.setBirthDate(infoEntity.getBirthDate());
 
-        this.infoEntity.setBirthDate(LocalDate.now());
-        this.infoEntity.setProvince("alla");
-        this.infoEntity.setMunicipality("aca");
-        this.infoEntity.setGender(UserGender.MALE);
+        String dni = authentication.getName();
+        Optional<UserEntity> optionalUserEntity = userRepository.findByDni(dni);
+        optionalUserEntity.orElseThrow(()-> new UsernameNotFoundException(dni + " NO ENCONTRADO"));
+        UserEntity userEntity = optionalUserEntity.get();
+
+        userEntity.setInfo(infoEntity);
+        userRepository.save(userEntity);
     }
-
 
 
 }

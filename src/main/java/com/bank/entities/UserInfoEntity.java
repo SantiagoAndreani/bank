@@ -2,10 +2,11 @@ package com.bank.entities;
 
 import com.bank.models.UserGender;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -19,28 +20,30 @@ public class UserInfoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Nombre sin espacios")
     private String name;
 
     @Column(name = "last_name")
-    @NotBlank
+    @NotBlank(message = "Apellido sin espacios")
     private String lastName;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Eliga un genero")
     private UserGender gender;
 
     @Column(name = "birth_date")
-    @NotBlank
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Eliga una fecha")
     private LocalDate birthDate;
 
     @Column(name = "cel_phone", unique = true)
-//    @Digits(integer = 10, fraction = 0)
+    @NotBlank(message = "Telefono sin espacios")
     private Integer celPhone;
 
-    @NotBlank
+    @NotBlank(message = "Eliga su provincia")
     private String province;
 
-    @NotBlank
+    @NotBlank(message = "Eliga su municipio")
     private String municipality;
 
 }

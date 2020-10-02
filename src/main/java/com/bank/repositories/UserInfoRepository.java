@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface UserInfoRepository extends JpaRepository<UserInfoEntity, Long> {
 
     Optional<UserInfoEntity> findById(Long id);
+
+    boolean existsByCelPhone(Integer celPhone);
 }
