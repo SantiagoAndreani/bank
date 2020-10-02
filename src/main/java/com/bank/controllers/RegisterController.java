@@ -1,7 +1,7 @@
 package com.bank.controllers;
 
 import com.bank.entities.UserEntity;
-import com.bank.services.UserService;
+import com.bank.services.NewUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,11 +14,11 @@ import javax.validation.Valid;
 @Controller
 public class RegisterController {
 
-    private UserService userService;
+    private NewUserService newUserService;
 
     @Autowired
-    public RegisterController(UserService userService) {
-        this.userService = userService;
+    public RegisterController(NewUserService newUserService) {
+        this.newUserService = newUserService;
     }
 
     @GetMapping("/register")
@@ -34,16 +34,16 @@ public class RegisterController {
         if (result.hasErrors())
             return "register";
 
-        if (userService.notUniqueDni(userEntity)) {
+        if (newUserService.notUniqueDni(userEntity)) {
             redirectAttributes.addFlashAttribute("notUniqueDni", "DNI de cliente existente");
             return "redirect:/register";
         }
-        if (userService.notUniqueEmail(userEntity)) {
+        if (newUserService.notUniqueEmail(userEntity)) {
             redirectAttributes.addFlashAttribute("notUniqueEmail", "Email de cliente existente");
             return "redirect:/register";
         }
         else {
-            userService.registerUser(userEntity);
+            newUserService.registerUser(userEntity);
             redirectAttributes.addFlashAttribute("success", "Cuenta creada exitosamente");
             return "redirect:/index";
         }

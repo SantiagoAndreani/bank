@@ -43,5 +43,4 @@ public class UserInfoEntity {
     @NotBlank
     private String municipality;
 
-
 }

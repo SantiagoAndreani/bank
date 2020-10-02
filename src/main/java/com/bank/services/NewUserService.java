@@ -1,8 +1,6 @@
 package com.bank.services;
 
-import com.bank.entities.UserAccountEntity;
 import com.bank.entities.UserEntity;
-import com.bank.entities.UserInfoEntity;
 import com.bank.entities.UserRoleEntity;
 import com.bank.models.UserRole;
 import com.bank.repositories.UserRepository;
@@ -13,14 +11,14 @@ import java.util.List;
 
 
 @Service
-public class UserService {
+public class NewUserService {
 
     private UserRepository userRepository;
     private UserEntity userEntity;
     private PasswordEncoderService encoderService;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoderService encoderService) {
+    public NewUserService(UserRepository userRepository, PasswordEncoderService encoderService) {
         this.userRepository = userRepository;
         this.encoderService = encoderService;
     }

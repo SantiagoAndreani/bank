@@ -23,6 +23,7 @@ public class MyUserDetails implements UserDetails {
         password = userEntity.getPassword();
 
         Collection<UserRoleEntity> userRole = userEntity.getRoles();
+
         accountNonExpired = userRole.stream().map(UserRoleEntity::isAccountNonExpired).findFirst().get();
         accountNonLocked = userRole.stream().map(UserRoleEntity::isAccountNonLocked).findFirst().get();
         credentialsNonExpired = userRole.stream().map(UserRoleEntity::isCredentialsNonExpired).findFirst().get();

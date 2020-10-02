@@ -27,4 +27,5 @@ public class UserAccountEntity {
 
     @NotNull
     private Double amount;
+
 }
