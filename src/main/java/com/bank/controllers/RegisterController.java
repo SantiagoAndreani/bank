@@ -32,7 +32,7 @@ public class RegisterController {
                                RedirectAttributes redirectAttributes){
 
         if (result.hasErrors())
-            return "register";
+            return "redirect:/register";
 
         if (newUserService.notUniqueDni(userEntity)) {
             redirectAttributes.addFlashAttribute("notUniqueDni", "DNI de cliente existente");

@@ -38,6 +38,7 @@ public class BankSecurity extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(STATIC_RESOURCES).permitAll()
+                .antMatchers("/info", "registerInfo").permitAll()
                 .antMatchers("/user/home").hasRole(USER_ROLE)
                 .antMatchers("/admin/home").hasRole(ADMIN_ROLE)
                 .antMatchers("/register", "/registerUser").permitAll()

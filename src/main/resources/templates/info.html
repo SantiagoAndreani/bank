@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/img/ananaLogo.png}" href="../static/img/ananaLogo.png" rel="shortcut icon" type="image/x-icon">
+    <title>INFO</title>
+
+    <link th:href="@{css/bootstrap.min.css}"  href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{css/info.css}"  href="../static/css/info.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" th:src="@{img/ananaLogo.png}" src="../static/img/ananaLogo.png" alt="logo" height="72">
+        <h1>Alta de cuenta</h1>
+        <p class="lead">Debes completar los siguientes datos antes de comenzar a operar</p>
+        <form th:object="${userInfoEntity}" th:action="@{/registerInfo}" action="#" method="post">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="name">Nombre</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="lastName">Apellido</label>
+                    <input  type="text" class="form-control" id="lastName" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="province">Provincia</label>
+                    <select class="custom-select d-block w-100" id="province" required>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="municipality">Municipio</label>
+                    <select class="custom-select d-block w-100" id="municipality" required>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="birthDate">Fecha nacimiento</label>
+                    <div class="input-group">
+                        <input type="date" class="form-control" id="birthDate" required>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="celPhone">Celular</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="celPhone" required>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="gender">Genero</label>
+                    <select class="custom-select d-block w-100" id="gender" required>
+                        <option value="MALE">Masculino</option>
+                        <option value="FEMALE">Femenino</option>
+                        <option value="OTHER">Otro</option>
+                    </select>
+                </div>
+                <hr class="m-lg-2">
+                <div class="custom-control custom-checkbox">
+                    <br>
+                    <input type="checkbox" class="custom-control-input" id="terms" onclick="check()">
+                    <label class="custom-control-label" for="terms">Acepto todos los terminos y condiciones de esta aplicacion falsa</label>
+                </div>
+                <br><br><br><br>
+
+                <button class="btn btn-primary btn-lg btn-block" id="submit" type="submit" disabled>Complete todo, dejame empezar !</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+</body>
+<script th:src="@{js/info.js}" src="../static/js/info.js"></script>
+</html>
