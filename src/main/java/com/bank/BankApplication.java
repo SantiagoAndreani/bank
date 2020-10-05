@@ -11,9 +11,8 @@ public class BankApplication  {
     }
 
     //TODO remember me
-    // provincia y municipio
+    // provincia y municipio js
     // doble login ??
-    // redirect errors info form
-    // security info form
-    // map with the user entity ID
+    // check js info form
+    // cel phone check y more accurate birth
 }

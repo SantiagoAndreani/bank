@@ -1,8 +1,10 @@
 package com.bank.services;
 
+import com.bank.entities.UserAccountEntity;
 import com.bank.entities.UserEntity;
 import com.bank.entities.UserInfoEntity;
 import com.bank.entities.UserRoleEntity;
+import com.bank.models.AccountType;
 import com.bank.models.UserRole;
 import com.bank.repositories.UserInfoRepository;
 import com.bank.repositories.UserRepository;
@@ -12,8 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -99,6 +100,13 @@ public class NewUserService {
         UserEntity userEntity = optionalUserEntity.get();
 
         userEntity.setInfo(infoEntity);
+
+        Set<UserAccountEntity> accounts = new HashSet<>();
+        accounts.add(new UserAccountEntity(AccountType.CAJA_AHORRO_PESOS, UUID.randomUUID()));
+        accounts.add(new UserAccountEntity(AccountType.BILLETERA_BITCOIN, UUID.randomUUID()));
+
+        userEntity.setAccounts(accounts);
+
         userRepository.save(userEntity);
     }
 

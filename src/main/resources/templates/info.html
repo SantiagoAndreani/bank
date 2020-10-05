@@ -50,7 +50,7 @@
                 <div class="col-md-4 mb-3">
                     <label for="celPhone">Celular</label>
                     <div class="input-group">
-                        <input th:field="*{celPhone}" type="number" class="form-control" id="celPhone" required>
+                        <input th:field="*{celPhone}" type="tel" class="form-control" id="celPhone" required>
                     </div>
                 </div>
                 <div class="col-md-4 mb-3">
@@ -65,13 +65,19 @@
                 <div class="custom-control custom-checkbox">
                     <br>
                     <input type="checkbox" class="custom-control-input" id="terms" onclick="check()">
-                    <label class="custom-control-label" for="terms">Acepto todos los terminos y condiciones de esta aplicacion falsa</label>
+                    <label class="custom-control-label" for="terms">Acepto crear una cuenta <b>gratuita</b> unviversal en pesos + Bitcoin Wallet</label>
                 </div>
                 <br><br><br>
                 <button class="btn btn-primary btn-lg btn-block" id="submit" type="submit" disabled>Complete todo, dejame empezar !</button>
+
                 <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="btn-block alert alert-warning"></p>
                 <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="btn-block alert alert-warning"></p>
                 <p th:if="${#fields.hasErrors('celPhone')}" th:errors="*{celPhone}" class="btn-block alert alert-warning"></p>
+                <p th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="btn-block alert alert-warning"></p>
+                <p th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}" class="btn-block alert alert-warning"></p>
+                <p th:if="${#fields.hasErrors('province')}" th:errors="*{province}" class="btn-block alert alert-warning"></p>
+                <p th:if="${#fields.hasErrors('municipality')}" th:errors="*{municipality}" class="btn-block alert alert-warning"></p>
+
                 <p th:if="${futureAge}" th:text="${futureAge}" class="btn-block alert alert-danger"></p>
                 <p th:if="${underAge}" th:text="${underAge}" class="btn-block alert alert-danger"></p>
                 <p th:if="${notUniqueCelPhone}" th:text="${notUniqueCelPhone}" class="btn-block alert alert-danger"></p>

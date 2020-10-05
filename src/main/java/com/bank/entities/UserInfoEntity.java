@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -37,7 +38,7 @@ public class UserInfoEntity {
     private LocalDate birthDate;
 
     @Column(name = "cel_phone", unique = true)
-    @NotBlank(message = "Telefono sin espacios")
+    @NotNull(message = "Telefono sin espacios" )
     private Integer celPhone;
 
     @NotBlank(message = "Eliga su provincia")

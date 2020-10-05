@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Entity
 @Table(name = "accounts")
@@ -19,13 +20,16 @@ public class UserAccountEntity {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @NotEmpty
+    @NotNull
     private AccountType type;
 
     @Column(unique = true)
-    private Long cbu;
+    private UUID cbu;
 
-    @NotNull
     private Double amount;
 
+    public UserAccountEntity(@NotEmpty AccountType type, UUID cbu) {
+        this.type = type;
+        this.cbu = cbu;
+    }
 }
