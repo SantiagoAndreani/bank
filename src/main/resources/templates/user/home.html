@@ -38,8 +38,14 @@
         </form>
     </div>
 </nav>
-
-<main role="main" class="container">
+<main>
+    <div class="jumbotron">
+        <div th:switch="${info.gender.name()}">
+            <h1 th:case="'MALE'" class="display-4">Bienvenido [[${info.name}]] !</h1>
+            <h1 th:case="'FEMALE'" class="display-4">Bienvenida [[${info.name}]] !</h1>
+            <h1 th:case="'OTHER'" class="display-4">Bienvenide [[${info.name}]] !</h1>
+        </div>
+    </div>
 
 </main>
 </body>

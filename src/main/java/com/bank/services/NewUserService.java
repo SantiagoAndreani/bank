@@ -94,10 +94,7 @@ public class NewUserService {
         this.infoEntity.setGender(infoEntity.getGender());
         this.infoEntity.setBirthDate(infoEntity.getBirthDate());
 
-        String dni = authentication.getName();
-        Optional<UserEntity> optionalUserEntity = userRepository.findByDni(dni);
-        optionalUserEntity.orElseThrow(()-> new UsernameNotFoundException(dni + " NO ENCONTRADO"));
-        UserEntity userEntity = optionalUserEntity.get();
+        UserEntity userEntity = getUserEntity(authentication);
 
         userEntity.setInfo(infoEntity);
 
@@ -108,6 +105,14 @@ public class NewUserService {
         userEntity.setAccounts(accounts);
 
         userRepository.save(userEntity);
+
+    }
+
+    public UserEntity getUserEntity(Authentication authentication) {
+        String dni = authentication.getName();
+        Optional<UserEntity> optionalUserEntity = userRepository.findByDni(dni);
+        optionalUserEntity.orElseThrow(()-> new UsernameNotFoundException(dni + " NO ENCONTRADO"));
+        return optionalUserEntity.get();
     }
 
 

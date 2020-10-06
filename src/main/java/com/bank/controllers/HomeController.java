@@ -1,13 +1,16 @@
 package com.bank.controllers;
 
+import com.bank.entities.UserEntity;
 import com.bank.entities.UserInfoEntity;
 import com.bank.models.UserRole;
 import com.bank.services.NewUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,7 +27,9 @@ public class HomeController {
     }
 
     @GetMapping("/home")
-    public String homeView(Authentication authentication) {
+    public String homeView(Authentication authentication, Model model) {
+
+        UserEntity userEntity = newUserService.getUserEntity(authentication);
 
         if (newUserService.checkInfo(authentication))
             return "redirect:/info";
@@ -32,10 +37,16 @@ public class HomeController {
         else {
             String role = authentication.getAuthorities().toString();
 
-            if (role.contains(String.valueOf(UserRole.ADMIN_ROLE)))
+            if (role.contains(String.valueOf(UserRole.ADMIN_ROLE))) {
+                model.addAttribute("info", userEntity.getInfo());
+                model.addAttribute("account", userEntity.getAccounts());
                 return "admin/home";
-            else if (role.contains(String.valueOf(UserRole.USER_ROLE)))
+            }
+            else if (role.contains(String.valueOf(UserRole.USER_ROLE))) {
+                model.addAttribute("info", userEntity.getInfo());
+                model.addAttribute("account", userEntity.getAccounts());
                 return "user/home";
+            }
             else
                 return "redirect:/index";
         }
