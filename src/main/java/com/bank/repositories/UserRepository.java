@@ -1,5 +1,6 @@
 package com.bank.repositories;
 
+import com.bank.entities.UserAccountEntity;
 import com.bank.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

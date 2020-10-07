@@ -2,15 +2,18 @@ package com.bank.models;
 
 import com.bank.entities.UserEntity;
 import com.bank.entities.UserRoleEntity;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+@Controller
+@NoArgsConstructor
 public class MyUserDetails implements UserDetails {
 
     private String dni;

@@ -44,7 +44,7 @@ public class HomeController {
             }
             else if (role.contains(String.valueOf(UserRole.USER_ROLE))) {
                 model.addAttribute("info", userEntity.getInfo());
-                model.addAttribute("account", userEntity.getAccounts());
+                model.addAttribute("accounts", userEntity.getAccounts());
                 return "user/home";
             }
             else

@@ -26,7 +26,7 @@ public class UserAccountEntity {
     @Column(unique = true)
     private UUID cbu;
 
-    private Double amount;
+    private Double amount = 0.0;
 
     public UserAccountEntity(@NotEmpty AccountType type, UUID cbu) {
         this.type = type;

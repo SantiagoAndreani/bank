@@ -15,4 +15,5 @@ public class BankApplication  {
     // doble login ??
     // check js info form
     // cel phone check y more accurate birth
+    // security dolar bitcoin
 }

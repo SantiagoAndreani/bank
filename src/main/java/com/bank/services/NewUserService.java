@@ -100,6 +100,7 @@ public class NewUserService {
 
         Set<UserAccountEntity> accounts = new HashSet<>();
         accounts.add(new UserAccountEntity(AccountType.CAJA_AHORRO_PESOS, UUID.randomUUID()));
+        accounts.add(new UserAccountEntity(AccountType.CAJA_AHORRO_DOLARES, UUID.randomUUID()));
         accounts.add(new UserAccountEntity(AccountType.BILLETERA_BITCOIN, UUID.randomUUID()));
 
         userEntity.setAccounts(accounts);
