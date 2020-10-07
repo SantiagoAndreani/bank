@@ -5,24 +5,28 @@ package com.bank.services;
 import com.bank.entities.UserAccountEntity;
 import com.bank.entities.UserEntity;
 import com.bank.models.AccountType;
+import com.bank.models.api.JsonDolar;
 import com.bank.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
 import java.util.Set;
 
-import java.util.stream.Collectors;
 
 
 @Service
 public class DolarService {
 
     private UserRepository userRepository;
+    private final String DOLAR_SI = "https://api-dolar-argentina.herokuapp.com/api/dolaroficial";
+    private final Double PAIS = 1.3;
 
     @Autowired
     public DolarService(UserRepository userRepository) {
@@ -43,6 +47,15 @@ public class DolarService {
         optionalUserAccountEntity.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
 
         return optionalUserAccountEntity.get().getAmount();
+    }
+
+    public void compraDolar() {
+
+        RestTemplate restTemplate = new RestTemplate();
+        JsonDolar cambio = restTemplate.getForObject(DOLAR_SI, JsonDolar.class);
+        double compra = Double.parseDouble(cambio.getCompra());
+
+
     }
 
 }
