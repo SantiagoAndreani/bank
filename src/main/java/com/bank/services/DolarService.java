@@ -41,6 +41,20 @@ public class DolarService {
         return optionalUserAccountEntity.get().getAmount();
     }
 
+    public boolean insufficientAmount(JsonDolar dolarForm, Double cajaPeso) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        JsonDolar jsonDolar = restTemplate.getForObject(URI_HEROKU, JsonDolar.class);
+        double compraPais = Double.parseDouble(jsonDolar.getCompra()) * PAIS;
+        jsonDolar.setAComprar(dolarForm.getAComprar());
+
+        if (cajaPeso < (jsonDolar.getAComprar()*compraPais))
+            return true;
+        else
+            return false;
+
+    }
+
     public void compraDolar(JsonDolar dolarForm) {
 
         RestTemplate restTemplate = new RestTemplate();

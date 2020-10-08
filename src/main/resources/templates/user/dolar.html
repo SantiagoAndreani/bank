@@ -61,6 +61,7 @@
                 <small class="text-muted">+ 30% (Imp. PAIS)</small>
                 <input th:field="*{aComprar}" autofocus type="number" class="form-control mb-5 mt-3" placeholder="Ingrese cantidad">
                 <button type="submit" class="btn btn-lg btn-block btn-primary">Comprar !</button>
+                <p th:if="${insufficientAmount}" th:text="${insufficientAmount}" class="alert alert-danger"></p>
             </div>
         </form>
         <form class="card mb-4 shadow-sm">
@@ -71,7 +72,7 @@
                 <h1 class="card-title pricing-card-title" id="venta"><small class="text-muted">/ mo</small></h1>
                 <small class="text-muted">Sin impuesto por venta</small>
                 <input type="number" class="form-control mb-5 mt-3" placeholder="Ingrese cantidad">
-                <button type="submit" class="btn btn-lg btn-block btn-primary">Vender !</button>
+                <button type="submit" class="btn btn-lg btn-block btn-primary">Vender !</button
             </div>
         </form>
     </div>

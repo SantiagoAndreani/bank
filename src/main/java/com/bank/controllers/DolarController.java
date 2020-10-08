@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -18,6 +19,8 @@ import javax.validation.Valid;
 public class DolarController {
 
     private DolarService dolarService;
+    private Double cajaPeso;
+    private Double cajaDolar;
 
     @Autowired
     public DolarController(DolarService dolarService) {
@@ -28,8 +31,8 @@ public class DolarController {
     @GetMapping(value = "/dolar")
     public String dolarView(Model model, Authentication authentication) {
 
-        Double cajaPeso = dolarService.getAmount(authentication, AccountType.CAJA_AHORRO_PESOS);
-        Double cajaDolar = dolarService.getAmount(authentication, AccountType.CAJA_AHORRO_DOLARES);
+        cajaPeso = dolarService.getAmount(authentication, AccountType.CAJA_AHORRO_PESOS);
+        cajaDolar = dolarService.getAmount(authentication, AccountType.CAJA_AHORRO_DOLARES);
 
         model.addAttribute("cajaPeso", cajaPeso);
         model.addAttribute("cajaDolar", cajaDolar);
@@ -38,10 +41,17 @@ public class DolarController {
     }
 
     @PostMapping("/compraDolar")
-    public String compraDolar(@ModelAttribute("aComprar") JsonDolar dolar, BindingResult result) {
+    public String compraDolar(@ModelAttribute("aComprar") JsonDolar dolar,
+                              BindingResult result,
+                              RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors())
             return "dolar";
+
+        if(dolarService.insufficientAmount(dolar, cajaPeso)) {
+            redirectAttributes.addFlashAttribute("insufficientAmount", "No tiene el monto insuficiente para la compra");
+            return "redirect:/dolar";
+        }
 
         dolarService.compraDolar(dolar);
 
