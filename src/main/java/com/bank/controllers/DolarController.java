@@ -1,19 +1,18 @@
 package com.bank.controllers;
 
-import com.bank.entities.UserAccountEntity;
-import com.bank.entities.UserEntity;
 import com.bank.models.AccountType;
+import com.bank.models.api.dolar.JsonDolar;
 import com.bank.services.DolarService;
-import com.bank.services.NewUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class DolarController {
@@ -26,7 +25,7 @@ public class DolarController {
     }
 
 
-    @GetMapping("/dolar")
+    @GetMapping(value = "/dolar")
     public String dolarView(Model model, Authentication authentication) {
 
         Double cajaPeso = dolarService.getAmount(authentication, AccountType.CAJA_AHORRO_PESOS);
@@ -34,13 +33,17 @@ public class DolarController {
 
         model.addAttribute("cajaPeso", cajaPeso);
         model.addAttribute("cajaDolar", cajaDolar);
+        model.addAttribute("aComprar", new JsonDolar());
         return "user/dolar";
     }
 
     @PostMapping("/compraDolar")
-    public String compraDolar() {
+    public String compraDolar(@ModelAttribute("aComprar") JsonDolar dolar, BindingResult result) {
 
-        dolarService.compraDolar();
+        if(result.hasErrors())
+            return "dolar";
+
+        dolarService.compraDolar(dolar);
 
         return "user/dolar";
     }

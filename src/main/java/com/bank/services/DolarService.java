@@ -1,31 +1,23 @@
 package com.bank.services;
 
-
-
 import com.bank.entities.UserAccountEntity;
 import com.bank.entities.UserEntity;
 import com.bank.models.AccountType;
-import com.bank.models.api.JsonDolar;
+import com.bank.models.api.dolar.JsonDolar;
 import com.bank.repositories.UserRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Optional;
-
 import java.util.Set;
-
-
 
 @Service
 public class DolarService {
 
     private UserRepository userRepository;
-    private final String DOLAR_SI = "https://api-dolar-argentina.herokuapp.com/api/dolaroficial";
+    private final String URI_HEROKU = "https://api-dolar-argentina.herokuapp.com/api/dolaroficial";
     private final Double PAIS = 1.3;
 
     @Autowired
@@ -49,11 +41,13 @@ public class DolarService {
         return optionalUserAccountEntity.get().getAmount();
     }
 
-    public void compraDolar() {
+    public void compraDolar(JsonDolar dolarForm) {
 
         RestTemplate restTemplate = new RestTemplate();
-        JsonDolar cambio = restTemplate.getForObject(DOLAR_SI, JsonDolar.class);
-        double compra = Double.parseDouble(cambio.getCompra());
+        JsonDolar jsonDolar = restTemplate.getForObject(URI_HEROKU, JsonDolar.class);
+        double compraPais = Double.parseDouble(jsonDolar.getCompra()) * PAIS;
+
+        jsonDolar.setAComprar(dolarForm.getAComprar());
 
 
     }

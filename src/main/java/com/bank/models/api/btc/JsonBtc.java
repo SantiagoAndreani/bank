@@ -1,12 +1,10 @@
-package com.bank.models.api;
+package com.bank.models.api.btc;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class JsonDolar {
+public class JsonBtc {
 
-    private String compra;
-    private String venta;
 }
