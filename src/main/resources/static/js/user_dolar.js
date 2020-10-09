@@ -41,12 +41,12 @@ function amount() {
     let maximo = document.getElementById("maximo");
 
     if (inCompra.value > maxcompra) {
-        inCompra.className = "form-control is-invalid";
+        inCompra.className = "form-control is-invalid mb-5 mt-3";
         maximo.innerText = `No puede comprar mas de ${maxcompra}`;
         maximo.hidden = false;
     }
     else if (inCompra.value < 0){
-        inCompra.className = "form-control is-invalid";
+        inCompra.className = "form-control is-invalid mb-5 mt-3";
         maximo.innerText = `No puede ingresar numeros negativos`;
         maximo.hidden = false;
     }

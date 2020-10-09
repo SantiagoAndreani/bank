@@ -43,7 +43,7 @@ public class DolarController {
     @PostMapping("/compraDolar")
     public String compraDolar(@ModelAttribute("dolarForm") JsonDolar dolarForm,
                               BindingResult result,
-                              RedirectAttributes redirectAttributes) {
+                              RedirectAttributes redirectAttributes, Authentication authentication) {
 
         if(result.hasErrors())
             return "user/dolar";
@@ -54,9 +54,9 @@ public class DolarController {
             return "redirect:/dolar";
         }
 
-        dolarService.compraDolar(dolarForm);
+        dolarService.compraDolar(dolarForm, authentication);
 
-        return "user/dolar";
+        return "redirect:/dolar";
     }
 
 

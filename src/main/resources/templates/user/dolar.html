@@ -59,7 +59,8 @@
             <div class="card-body">
                 <h1 class="card-title pricing-card-title" id="compra"></h1>
                 <small class="text-muted">+ 30% (Imp. PAIS)</small>
-                <input min="1" oninput="amount()" th:field="*{aComprar}" id="inCompra" autofocus type="number" class="form-control mb-5 mt-3" placeholder="Ingrese cantidad en dolares a comprar">
+                <input min="1" oninput="amount()" th:field="*{aComprar}" id="inCompra" autofocus type="number"
+                       class="form-control mb-5 mt-3" placeholder="Ingrese cantidad en dolares a comprar">
                 <button type="submit" class="btn btn-lg btn-block btn-primary">Comprar !</button>
                 <p th:if="${insufficientAmount}" th:text="${insufficientAmount}" class="alert alert-danger"></p>
                 <p id="maximo" hidden="true" class="alert alert-warning"></p>

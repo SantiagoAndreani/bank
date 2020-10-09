@@ -8,6 +8,7 @@ import com.bank.models.AccountType;
 import com.bank.models.UserRole;
 import com.bank.repositories.UserInfoRepository;
 import com.bank.repositories.UserRepository;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
