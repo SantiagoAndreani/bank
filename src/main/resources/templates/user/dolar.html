@@ -32,14 +32,14 @@
     </div>
 </nav>
 <br><br><br>
-<div class="mt-5">
+<div class="mt-2">
     <div class="card-deck mb-3 text-center">
         <div class="card mb-4 shadow-sm">
             <div class="card-header">
                 <h4 class="my-0 font-weight-normal">Caja Ahorro Pesos</h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title" th:text="${'$ ' + cajaPeso}"></h1>
+                <h1 id="cajaPeso" class="card-title pricing-card-title" th:text="${'$ ' + cajaPeso}"></h1>
             </div>
         </div>
         <div class="card mb-4 shadow-sm">
@@ -52,16 +52,17 @@
         </div>
     </div>
     <div class="card-deck mb-3 text-center">
-        <form class="card mb-4 shadow-sm" th:action="@{/compraDolar}" th:object="${aComprar}" action="#" method="post">
+        <form class="card mb-4 shadow-sm" th:action="@{/compraDolar}" th:object="${dolarForm}" action="#" method="post">
             <div class="card-header">
                 <h4 class="my-0 font-weight-normal">Compra</h4>
             </div>
             <div class="card-body">
                 <h1 class="card-title pricing-card-title" id="compra"></h1>
                 <small class="text-muted">+ 30% (Imp. PAIS)</small>
-                <input th:field="*{aComprar}" autofocus type="number" class="form-control mb-5 mt-3" placeholder="Ingrese cantidad">
+                <input min="1" oninput="amount()" th:field="*{aComprar}" id="inCompra" autofocus type="number" class="form-control mb-5 mt-3" placeholder="Ingrese cantidad en dolares a comprar">
                 <button type="submit" class="btn btn-lg btn-block btn-primary">Comprar !</button>
                 <p th:if="${insufficientAmount}" th:text="${insufficientAmount}" class="alert alert-danger"></p>
+                <p id="maximo" hidden="true" class="alert alert-warning"></p>
             </div>
         </form>
         <form class="card mb-4 shadow-sm">
@@ -71,8 +72,8 @@
             <div class="card-body">
                 <h1 class="card-title pricing-card-title" id="venta"><small class="text-muted">/ mo</small></h1>
                 <small class="text-muted">Sin impuesto por venta</small>
-                <input type="number" class="form-control mb-5 mt-3" placeholder="Ingrese cantidad">
-                <button type="submit" class="btn btn-lg btn-block btn-primary">Vender !</button
+                <input type="number" id="inVenta" class="form-control mb-5 mt-3" placeholder="Ingrese cantidad">
+                <button type="submit" class="btn btn-lg btn-block btn-primary">Vender !</button>
             </div>
         </form>
     </div>

@@ -48,11 +48,7 @@ public class DolarService {
         double compraPais = Double.parseDouble(jsonDolar.getCompra()) * PAIS;
         jsonDolar.setAComprar(dolarForm.getAComprar());
 
-        if (cajaPeso < (jsonDolar.getAComprar()*compraPais))
-            return true;
-        else
-            return false;
-
+        return cajaPeso < (jsonDolar.getAComprar()*compraPais);
     }
 
     public void compraDolar(JsonDolar dolarForm) {

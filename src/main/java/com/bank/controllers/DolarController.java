@@ -36,24 +36,25 @@ public class DolarController {
 
         model.addAttribute("cajaPeso", cajaPeso);
         model.addAttribute("cajaDolar", cajaDolar);
-        model.addAttribute("aComprar", new JsonDolar());
+        model.addAttribute("dolarForm", new JsonDolar());
         return "user/dolar";
     }
 
     @PostMapping("/compraDolar")
-    public String compraDolar(@ModelAttribute("aComprar") JsonDolar dolar,
+    public String compraDolar(@ModelAttribute("dolarForm") JsonDolar dolarForm,
                               BindingResult result,
                               RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors())
-            return "dolar";
+            return "user/dolar";
 
-        if(dolarService.insufficientAmount(dolar, cajaPeso)) {
-            redirectAttributes.addFlashAttribute("insufficientAmount", "No tiene el monto insuficiente para la compra");
+        if(dolarService.insufficientAmount(dolarForm, cajaPeso)) {
+            redirectAttributes.addFlashAttribute(
+                    "insufficientAmount", "No tiene el monto suficiente para la compra");
             return "redirect:/dolar";
         }
 
-        dolarService.compraDolar(dolar);
+        dolarService.compraDolar(dolarForm);
 
         return "user/dolar";
     }

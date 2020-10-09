@@ -13,4 +13,5 @@ public class JsonDolar {
 
     private double aComprar;
     private double aVender;
+
 }
