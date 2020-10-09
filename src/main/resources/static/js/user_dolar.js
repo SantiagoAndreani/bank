@@ -42,7 +42,7 @@ function amount() {
 
     if (inCompra.value > maxcompra) {
         inCompra.className = "form-control is-invalid mb-5 mt-3";
-        maximo.innerText = `No puede comprar mas de ${maxcompra}`;
+        maximo.innerText = `No puede comprar mas de U$S ${maxcompra}`;
         maximo.hidden = false;
     }
     else if (inCompra.value < 0){

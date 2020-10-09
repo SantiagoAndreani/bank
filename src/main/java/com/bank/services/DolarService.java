@@ -85,7 +85,8 @@ public class DolarService {
 
         UserAccountEntity cajaPeso2 = cajaPeso.get();
         UserAccountEntity cajaDolar2 = cajaDolar.get();
-        UserAccountEntity btc2 = btc.get();
+        UserAccountEntity btc2 = cajaDolar.get();
+
 
         cajaPeso2.setAmount(cajaPeso2.getAmount() - compraPais);
         cajaDolar2.setAmount(cajaDolar2.getAmount() + aComprar);

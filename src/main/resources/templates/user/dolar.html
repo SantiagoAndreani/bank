@@ -63,6 +63,7 @@
                        class="form-control mb-5 mt-3" placeholder="Ingrese cantidad en dolares a comprar">
                 <button type="submit" class="btn btn-lg btn-block btn-primary">Comprar !</button>
                 <p th:if="${insufficientAmount}" th:text="${insufficientAmount}" class="alert alert-danger"></p>
+                <p th:if="${exito}" th:text="${exito}" class="alert alert-success"></p>
                 <p id="maximo" hidden="true" class="alert alert-warning"></p>
             </div>
         </form>

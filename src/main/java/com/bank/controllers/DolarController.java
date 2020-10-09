@@ -48,15 +48,16 @@ public class DolarController {
         if(result.hasErrors())
             return "user/dolar";
 
-        if(dolarService.insufficientAmount(dolarForm, cajaPeso)) {
+        else if(dolarService.insufficientAmount(dolarForm, cajaPeso)) {
             redirectAttributes.addFlashAttribute(
                     "insufficientAmount", "No tiene el monto suficiente para la compra");
             return "redirect:/dolar";
         }
-
-        dolarService.compraDolar(dolarForm, authentication);
-
-        return "redirect:/dolar";
+        else {
+            dolarService.compraDolar(dolarForm, authentication);
+            redirectAttributes.addFlashAttribute("exito", "Transferencia Exitosa !");
+            return "redirect:/dolar";
+        }
     }
 
 
