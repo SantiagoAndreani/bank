@@ -21,7 +21,7 @@ fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
         venta.innerText = precioVenta;
     })
 
-// SET EMPTY FIELDS
+// SET EMPTY FIELDS por new JsonForm()
 
 let inCompra = document.getElementById("inCompra");
 inCompra.value =  "";
@@ -29,29 +29,54 @@ inCompra.value =  "";
 let inVenta = document.getElementById("inVenta");
 inVenta.value =  "";
 
-// MONTO SUFICIENTE COMPRA
+// MONTO INSUFICIENTE COMPRA
 
 let cajaPeso = document.getElementById("cajaPeso");
 
-function amount() {
+function amountCompra() {
     let PAIS = 1.3;
-    let cajaParse = parseFloat(cajaPeso.textContent.replace("$",""));
+    let cajaPesoParse = parseFloat(cajaPeso.textContent.replace("$",""));
     let compraParse = parseFloat(compra.textContent.replace(",","."));
-    let maxcompra = cajaParse / (compraParse*PAIS);
-    let maximo = document.getElementById("maximo");
+    let maxCompra = cajaPesoParse / (compraParse*PAIS);
+    let maximoCompra = document.getElementById("maximoCompra");
 
-    if (inCompra.value > maxcompra) {
+    if (inCompra.value > maxCompra) {
         inCompra.className = "form-control is-invalid mb-5 mt-3";
-        maximo.innerText = `No puede comprar mas de U$S ${maxcompra}`;
-        maximo.hidden = false;
+        maximoCompra.innerText = `No puede comprar mas de U$S ${maxCompra}`;
+        maximoCompra.hidden = false;
     }
     else if (inCompra.value < 0){
         inCompra.className = "form-control is-invalid mb-5 mt-3";
-        maximo.innerText = `No puede ingresar numeros negativos`;
-        maximo.hidden = false;
+        maximoCompra.innerText = `No puede ingresar numeros negativos`;
+        maximoCompra.hidden = false;
     }
     else {
         inCompra.className = "form-control is-valid mb-5 mt-3";
+    }
+}
+
+// MONTO INSUFICIENTE VENTA
+
+let cajaDolar = document.getElementById("cajaDolar");
+
+function  amountVenta() {
+
+    let cajaVentaParse = parseFloat(cajaDolar.textContent.replace("U$S",""));
+    let ventaParse = parseFloat(venta.textContent.replace(",","."));
+    let maximoVenta = document.getElementById("maximoVenta");
+
+    if(inVenta.value > cajaVentaParse) {
+        inVenta.className = "form-control is-invalid mb-5 mt-3";
+        maximoVenta.innerText = `No puede vender mas de U$S ${cajaVentaParse}`;
+        maximoVenta.hidden = false;
+    }
+    else if (inVenta < 0) {
+        inVenta.className = "form-control is-invalid mb-5 mt-3";
+        maximoVenta.innerText = `No puede ingresar numeros negativos`;
+        maximoVenta.hidden = false;
+    }
+    else {
+        inVenta.className = "form-control is-valid mb-5 mt-3"
     }
 }
 

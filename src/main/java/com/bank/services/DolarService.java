@@ -45,7 +45,7 @@ public class DolarService {
         return optionalUserAccountEntity.get().getAmount();
     }
 
-    public boolean insufficientAmount(JsonDolar dolarForm, Double cajaPeso) {
+    public boolean compraInsuficiente(JsonDolar dolarForm, Double cajaPeso) {
 
         RestTemplate restTemplate = new RestTemplate();
         JsonDolar jsonDolar = restTemplate.getForObject(URI_HEROKU, JsonDolar.class);
@@ -66,30 +66,26 @@ public class DolarService {
 
         UserEntity userEntity = getUserEntity(authentication);
         Set<UserAccountEntity> accounts = userEntity.getAccounts();
-
         Optional<UserAccountEntity> cajaPeso = accounts.stream()
                 .filter(userAccountEntity ->
                         userAccountEntity.getType().equals(AccountType.CAJA_AHORRO_PESOS)).findFirst();
-
         Optional<UserAccountEntity> cajaDolar = accounts.stream()
                 .filter(userAccountEntity ->
                         userAccountEntity.getType().equals(AccountType.CAJA_AHORRO_DOLARES)).findFirst();
-
         Optional<UserAccountEntity> btc = accounts.stream()
                 .filter(userAccountEntity ->
                         userAccountEntity.getType().equals(AccountType.BILLETERA_BITCOIN)).findFirst();
-
         cajaPeso.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
         cajaDolar.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
         btc.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
 
         UserAccountEntity cajaPeso2 = cajaPeso.get();
         UserAccountEntity cajaDolar2 = cajaDolar.get();
-        UserAccountEntity btc2 = cajaDolar.get();
-
+        UserAccountEntity btc2 = btc.get();
 
         cajaPeso2.setAmount(cajaPeso2.getAmount() - compraPais);
         cajaDolar2.setAmount(cajaDolar2.getAmount() + aComprar);
+        btc2.setAmount(btc2.getAmount());
 
         Set<UserAccountEntity> aGuardar = new HashSet<>();
         aGuardar.add(cajaPeso2);
@@ -99,7 +95,51 @@ public class DolarService {
         userEntity.setAccounts(aGuardar);
 
         userRepository.save(userEntity);
+    }
 
+    public boolean ventaInsuficiente(JsonDolar dolarForm, Double cajaDolar) {
+        return dolarForm.getAVender() > cajaDolar;
+    }
+
+    public void ventaDolar(JsonDolar dolarForm, Authentication authentication) {
+        RestTemplate restTemplate = new RestTemplate();
+        JsonDolar jsonDolar = restTemplate.getForObject(URI_HEROKU, JsonDolar.class);
+        Double venta = Double.parseDouble(jsonDolar.getVenta());
+
+        double aVender = dolarForm.getAVender();
+        jsonDolar.setAVender(aVender);
+
+        UserEntity userEntity = getUserEntity(authentication);
+        Set<UserAccountEntity> accounts = userEntity.getAccounts();
+        Optional<UserAccountEntity> cajaPeso = accounts.stream()
+                .filter(userAccountEntity ->
+                        userAccountEntity.getType().equals(AccountType.CAJA_AHORRO_PESOS)).findFirst();
+        Optional<UserAccountEntity> cajaDolar = accounts.stream()
+                .filter(userAccountEntity ->
+                        userAccountEntity.getType().equals(AccountType.CAJA_AHORRO_DOLARES)).findFirst();
+        Optional<UserAccountEntity> btc = accounts.stream()
+                .filter(userAccountEntity ->
+                        userAccountEntity.getType().equals(AccountType.BILLETERA_BITCOIN)).findFirst();
+        cajaPeso.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
+        cajaDolar.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
+        btc.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
+
+        UserAccountEntity cajaPeso2 = cajaPeso.get();
+        UserAccountEntity cajaDolar2 = cajaDolar.get();
+        UserAccountEntity btc2 = btc.get();
+
+        cajaDolar2.setAmount(cajaDolar2.getAmount() - aVender);
+        cajaPeso2.setAmount(cajaPeso2.getAmount() + (aVender * venta));
+        btc2.setAmount(btc2.getAmount());
+
+        Set<UserAccountEntity> aGuardar = new HashSet<>();
+        aGuardar.add(cajaPeso2);
+        aGuardar.add(cajaDolar2);
+        aGuardar.add(btc2);
+
+        userEntity.setAccounts(aGuardar);
+
+        userRepository.save(userEntity);
     }
 
     public UserEntity getUserEntity(Authentication authentication) {
@@ -108,5 +148,7 @@ public class DolarService {
         optionalUserEntity.orElseThrow(()-> new UsernameNotFoundException(dni + " NO ENCONTRADO"));
         return optionalUserEntity.get();
     }
+
+
 
 }

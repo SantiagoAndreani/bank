@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
-
 @Controller
 public class DolarController {
 
@@ -42,22 +40,42 @@ public class DolarController {
 
     @PostMapping("/compraDolar")
     public String compraDolar(@ModelAttribute("dolarForm") JsonDolar dolarForm,
-                              BindingResult result,
-                              RedirectAttributes redirectAttributes, Authentication authentication) {
+                              BindingResult result, RedirectAttributes attributes,
+                              Authentication authentication) {
 
         if(result.hasErrors())
             return "user/dolar";
 
-        else if(dolarService.insufficientAmount(dolarForm, cajaPeso)) {
-            redirectAttributes.addFlashAttribute(
-                    "insufficientAmount", "No tiene el monto suficiente para la compra");
+        else if(dolarService.compraInsuficiente(dolarForm, cajaPeso)) {
+            attributes.addFlashAttribute(
+                    "compraInsuficiente", "No tiene el monto suficiente para la compra");
             return "redirect:/dolar";
         }
         else {
             dolarService.compraDolar(dolarForm, authentication);
-            redirectAttributes.addFlashAttribute("exito", "Transferencia Exitosa !");
+            attributes.addFlashAttribute("exitoCompra", "Compra exitosa !");
             return "redirect:/dolar";
         }
+    }
+
+    @PostMapping("/ventaDolar")
+    public String ventaDolar (@ModelAttribute("dolarForm") JsonDolar dolarForm,
+                              BindingResult result, RedirectAttributes attributes,
+                              Authentication authentication) {
+        if(result.hasErrors())
+            return "user/dolar";
+
+        else if (dolarService.ventaInsuficiente(dolarForm, cajaDolar)) {
+            attributes.addFlashAttribute(
+                    "ventaInsuficiente", "No tiene el monto suficiente para la venta");
+            return "redirect:/dolar";
+        }
+        else {
+            dolarService.ventaDolar(dolarForm, authentication);
+            attributes.addFlashAttribute("exitoVenta", "Venta exitosa !");
+            return  "redirect:/dolar";
+        }
+
     }
 
 
