@@ -16,4 +16,5 @@ public class BankApplication  {
     // check js info form
     // cel phone check y more accurate birth
     // security dolar bitcoin
+    // imagen movida dolar
 }

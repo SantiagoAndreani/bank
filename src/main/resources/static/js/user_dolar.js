@@ -7,7 +7,7 @@ fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
     .then(response => response.json())
     .then(json => {
        let precioCompra = json[0].casa.compra;
-       compra.innerText = precioCompra;
+       compra.innerText = `$ ${precioCompra}`;
     })
 
 // VENTA DOLAR
@@ -18,7 +18,7 @@ fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
     .then(response => response.json())
     .then(json => {
         let precioVenta = json[0].casa.venta;
-        venta.innerText = precioVenta;
+        venta.innerText = `$ ${precioVenta}`;
     })
 
 // SET EMPTY FIELDS por new JsonForm()

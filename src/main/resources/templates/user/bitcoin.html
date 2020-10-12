@@ -32,5 +32,59 @@
         </form>
     </div>
 </nav>
+<br><br><br>
+<div class="mt-2">
+    <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Caja Ahorro Pesos</h4>
+            </div>
+            <div class="card-body">
+<!--                <h1 id="cajaPeso" class="card-title pricing-card-title" th:text="${'$ ' + cajaPeso}"></h1>-->
+            </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Billetera Bitcoin</h4>
+            </div>
+            <div class="card-body">
+<!--                <h1 id="cajaBtc" class="card-title pricing-card-title" th:text="${CajaBtc + ' btc'}"></h1>-->
+            </div>
+        </div>
+    </div>
+    <div class="card-deck mb-3 text-center">
+        <form class="card mb-4 shadow-sm" th:action="@{/compraBtc}" th:object="${btcForm}" action="#" method="post">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Compra</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title" id="compra"></h1>
+                <small class="text-muted">(1 btc) / Comision del 1% por compra</small>
+<!--                <input min="0" oninput="amountCompra()" th:field="*{aComprar}" id="inCompra" autofocus type="number"-->
+<!--                       class="form-control mb-5 mt-3" placeholder="Ingrese cantidad en dolares a comprar">-->
+                <button type="submit" class="btn btn-lg btn-block btn-primary">Comprar !</button>
+<!--                <p th:if="${compraInsuficiente}" th:text="${compraInsuficiente}" class="alert alert-danger"></p>-->
+<!--                <p th:if="${exitoCompra}" th:text="${exitoCompra}" class="alert alert-success"></p>-->
+                <p id="maximoCompra" hidden="true" class="alert alert-warning"></p>
+            </div>
+        </form>
+        <form class="card mb-4 shadow-sm" th:action="@{/ventaBtc}" th:object="${btcForm}" action="#" method="post">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Venta</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title" id="venta"></h1>
+                <small class="text-muted">(1 btc) / Comision del 1% por venta</small>
+<!--                <input th:field="*{aVender}" oninput="amountVenta()" min="0" type="number" id="inVenta"-->
+<!--                       class="form-control mb-5 mt-3" placeholder="Ingrese cantidad">-->
+                <button type="submit" class="btn btn-lg btn-block btn-primary">Vender !</button>
+<!--                <p th:if="${ventaInsuficiente}" th:text="${ventaInsuficiente}" class="alert alert-danger"></p>-->
+<!--                <p th:if="${exitoVenta}" th:text="${exitoVenta}" class="alert alert-success"></p>-->
+                <p id="maximoVenta" hidden="true" class="alert alert-warning"></p>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
+<script th:src="@{js/user_btc.js}" src="../static/js/user_btc.js"></script>
 </html>
