@@ -1,4 +1,5 @@
 
+
 // COMPRA BTC
 
         let compra = document.getElementById("compra");
@@ -6,13 +7,13 @@
 fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
     .then(response => response.json())
     .then(json => {
-        let dolarPais = parseFloat(json[1].casa.compra);
+        let dolar = parseFloat(json[1].casa.venta);
 
-        fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
+        fetch("https://blockchain.info/ticker")
             .then(response => response.json())
             .then(json => {
-                let precioCompra = (json[5].casa.venta).replace(".","");
-                let precioCompraPais = parseFloat(precioCompra) * dolarPais;
+                let precioCompra = json.USD.sell;
+                let precioCompraPais = parseFloat(precioCompra) * dolar;
                 compra.innerText = `$ ${precioCompraPais}`;
             })
     })
@@ -24,13 +25,13 @@ let venta = document.getElementById("venta");
 fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
     .then(response => response.json())
     .then(json => {
-        let dolarPais = parseFloat(json[1].casa.compra);
+        let dolar = parseFloat(json[1].casa.compra);
 
-        fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
+        fetch("https://blockchain.info/ticker")
             .then(response => response.json())
             .then(json => {
-                let precioVenta = (json[5].casa.compra).replace(".","");
-                let precioVentaPais = parseFloat(precioVenta) * dolarPais;
+                let precioVenta = json.USD.buy;
+                let precioVentaPais = parseFloat(precioVenta) * dolar;
                 venta.innerText = `$ ${precioVentaPais}`;
             })
     })

@@ -49,62 +49,17 @@ public class DolarService {
 
         RestTemplate restTemplate = new RestTemplate();
         JsonDolar jsonDolar = restTemplate.getForObject(URI_HEROKU, JsonDolar.class);
-        double compraPais = Double.parseDouble(jsonDolar.getCompra()) * PAIS;
-        jsonDolar.setAComprar(dolarForm.getAComprar());
+        double ventaPais = Double.parseDouble(jsonDolar.getVenta()) * PAIS;
+        jsonDolar.setAVender(dolarForm.getAVender());
 
-        return cajaPeso < (jsonDolar.getAComprar()*compraPais);
+        return cajaPeso < (jsonDolar.getAVender()*ventaPais);
     }
 
     public void compraDolar(JsonDolar dolarForm, Authentication authentication) {
 
         RestTemplate restTemplate = new RestTemplate();
         JsonDolar jsonDolar = restTemplate.getForObject(URI_HEROKU, JsonDolar.class);
-        Double compraPais = Double.parseDouble(jsonDolar.getCompra()) * PAIS;
-
-        double aComprar = dolarForm.getAComprar();
-        jsonDolar.setAComprar(aComprar);
-
-        UserEntity userEntity = getUserEntity(authentication);
-        Set<UserAccountEntity> accounts = userEntity.getAccounts();
-        Optional<UserAccountEntity> cajaPeso = accounts.stream()
-                .filter(userAccountEntity ->
-                        userAccountEntity.getType().equals(AccountType.CAJA_AHORRO_PESOS)).findFirst();
-        Optional<UserAccountEntity> cajaDolar = accounts.stream()
-                .filter(userAccountEntity ->
-                        userAccountEntity.getType().equals(AccountType.CAJA_AHORRO_DOLARES)).findFirst();
-        Optional<UserAccountEntity> btc = accounts.stream()
-                .filter(userAccountEntity ->
-                        userAccountEntity.getType().equals(AccountType.BILLETERA_BITCOIN)).findFirst();
-        cajaPeso.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
-        cajaDolar.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
-        btc.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
-
-        UserAccountEntity cajaPeso2 = cajaPeso.get();
-        UserAccountEntity cajaDolar2 = cajaDolar.get();
-        UserAccountEntity btc2 = btc.get();
-
-        cajaPeso2.setAmount(cajaPeso2.getAmount() - compraPais);
-        cajaDolar2.setAmount(cajaDolar2.getAmount() + aComprar);
-        btc2.setAmount(btc2.getAmount());
-
-        Set<UserAccountEntity> aGuardar = new HashSet<>();
-        aGuardar.add(cajaPeso2);
-        aGuardar.add(cajaDolar2);
-        aGuardar.add(btc2);
-
-        userEntity.setAccounts(aGuardar);
-
-        userRepository.save(userEntity);
-    }
-
-    public boolean ventaInsuficiente(JsonDolar dolarForm, Double cajaDolar) {
-        return dolarForm.getAVender() > cajaDolar;
-    }
-
-    public void ventaDolar(JsonDolar dolarForm, Authentication authentication) {
-        RestTemplate restTemplate = new RestTemplate();
-        JsonDolar jsonDolar = restTemplate.getForObject(URI_HEROKU, JsonDolar.class);
-        Double venta = Double.parseDouble(jsonDolar.getVenta());
+        Double ventaPais = Double.parseDouble(jsonDolar.getVenta()) * PAIS;
 
         double aVender = dolarForm.getAVender();
         jsonDolar.setAVender(aVender);
@@ -128,8 +83,53 @@ public class DolarService {
         UserAccountEntity cajaDolar2 = cajaDolar.get();
         UserAccountEntity btc2 = btc.get();
 
-        cajaDolar2.setAmount(cajaDolar2.getAmount() - aVender);
-        cajaPeso2.setAmount(cajaPeso2.getAmount() + (aVender * venta));
+        cajaPeso2.setAmount(cajaPeso2.getAmount() - ventaPais);
+        cajaDolar2.setAmount(cajaDolar2.getAmount() + aVender);
+        btc2.setAmount(btc2.getAmount());
+
+        Set<UserAccountEntity> aGuardar = new HashSet<>();
+        aGuardar.add(cajaPeso2);
+        aGuardar.add(cajaDolar2);
+        aGuardar.add(btc2);
+
+        userEntity.setAccounts(aGuardar);
+
+        userRepository.save(userEntity);
+    }
+
+    public boolean ventaInsuficiente(JsonDolar dolarForm, Double cajaDolar) {
+        return dolarForm.getAVender() > cajaDolar;
+    }
+
+    public void ventaDolar(JsonDolar dolarForm, Authentication authentication) {
+        RestTemplate restTemplate = new RestTemplate();
+        JsonDolar jsonDolar = restTemplate.getForObject(URI_HEROKU, JsonDolar.class);
+        Double compra = Double.parseDouble(jsonDolar.getCompra());
+
+        double aComprar = dolarForm.getAComprar();
+        jsonDolar.setAComprar(aComprar);
+
+        UserEntity userEntity = getUserEntity(authentication);
+        Set<UserAccountEntity> accounts = userEntity.getAccounts();
+        Optional<UserAccountEntity> cajaPeso = accounts.stream()
+                .filter(userAccountEntity ->
+                        userAccountEntity.getType().equals(AccountType.CAJA_AHORRO_PESOS)).findFirst();
+        Optional<UserAccountEntity> cajaDolar = accounts.stream()
+                .filter(userAccountEntity ->
+                        userAccountEntity.getType().equals(AccountType.CAJA_AHORRO_DOLARES)).findFirst();
+        Optional<UserAccountEntity> btc = accounts.stream()
+                .filter(userAccountEntity ->
+                        userAccountEntity.getType().equals(AccountType.BILLETERA_BITCOIN)).findFirst();
+        cajaPeso.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
+        cajaDolar.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
+        btc.orElseThrow(()-> new UsernameNotFoundException("NO ENCONTRADO"));
+
+        UserAccountEntity cajaPeso2 = cajaPeso.get();
+        UserAccountEntity cajaDolar2 = cajaDolar.get();
+        UserAccountEntity btc2 = btc.get();
+
+        cajaDolar2.setAmount(cajaDolar2.getAmount() - aComprar);
+        cajaPeso2.setAmount(cajaPeso2.getAmount() + (aComprar * compra));
         btc2.setAmount(btc2.getAmount());
 
         Set<UserAccountEntity> aGuardar = new HashSet<>();

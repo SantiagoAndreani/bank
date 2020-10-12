@@ -6,7 +6,7 @@ let compra = document.getElementById("compra");
 fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
     .then(response => response.json())
     .then(json => {
-       let precioCompra = json[0].casa.compra;
+       let precioCompra = json[0].casa.venta;
        compra.innerText = `$ ${precioCompra}`;
     })
 
@@ -17,7 +17,7 @@ let venta = document.getElementById("venta");
 fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
     .then(response => response.json())
     .then(json => {
-        let precioVenta = json[0].casa.venta;
+        let precioVenta = json[0].casa.compra;
         venta.innerText = `$ ${precioVenta}`;
     })
 
@@ -36,9 +36,14 @@ let cajaPeso = document.getElementById("cajaPeso");
 function amountCompra() {
     let PAIS = 1.3;
     let cajaPesoParse = parseFloat(cajaPeso.textContent.replace("$",""));
-    let compraParse = parseFloat(compra.textContent.replace(",","."));
+    let compraParse = parseFloat(compra.textContent.replace("$","").replace(",","."));
     let maxCompra = cajaPesoParse / (compraParse*PAIS);
     let maximoCompra = document.getElementById("maximoCompra");
+
+    console.log(cajaPesoParse)
+    console.log(compraParse)
+    console.log(inCompra.value)
+    console.log(maxCompra)
 
     if (inCompra.value > maxCompra) {
         inCompra.className = "form-control is-invalid mb-5 mt-3";
@@ -62,7 +67,7 @@ let cajaDolar = document.getElementById("cajaDolar");
 function  amountVenta() {
 
     let cajaVentaParse = parseFloat(cajaDolar.textContent.replace("U$S",""));
-    let ventaParse = parseFloat(venta.textContent.replace(",","."));
+    // let ventaParse = parseFloat(venta.textContent.replace(",","."));
     let maximoVenta = document.getElementById("maximoVenta");
 
     if(inVenta.value > cajaVentaParse) {
