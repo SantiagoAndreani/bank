@@ -75,7 +75,7 @@
                 <h1 class="card-title pricing-card-title" id="venta"></h1>
                 <small class="text-muted">Sin impuesto por venta</small>
                 <input th:field="*{aComprar}" oninput="amountVenta()" min="0" type="number" id="inVenta"
-                       class="form-control mb-5 mt-3" placeholder="Ingrese cantidad">
+                       class="form-control mb-5 mt-3" placeholder="Ingrese cantidad en dolares a vender">
                 <button type="submit" class="btn btn-lg btn-block btn-primary">Vender !</button>
                 <p th:if="${ventaInsuficiente}" th:text="${ventaInsuficiente}" class="alert alert-danger"></p>
                 <p th:if="${exitoVenta}" th:text="${exitoVenta}" class="alert alert-success"></p>

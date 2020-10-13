@@ -5,12 +5,8 @@ import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class JsonBtc {
+public class BuySell {
 
-    private String USD;
-    private BuySell buySell;
-
-    private double aComprar;
-    private double aVender;
-
+    private String buy;
+    private String sell;
 }
